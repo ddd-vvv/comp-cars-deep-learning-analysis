@@ -1,0 +1,21 @@
+# ==========================================
+# GLOBAL EMBEDDINGS ANALYSIS CONFIGURATION
+# ==========================================
+# This configuration applies universally to downstream
+# embedding analysis across different experiments.
+
+# ===== DIMENSIONALITY REDUCTION =====
+reducer_trials: 50                               # Hyperparameter search trials for dimensionality reduction
+reducer_methods: ['pca']                         # Included algorithms (e.g., 'pca', 'tsne', 'umap')
+
+# ===== CLUSTERING =====
+clustering_trials: 200                           # Hyperparameter search trials for clustering algorithms
+clustering_methods: ['dbscan', 'hdbscan', 'optics', 'agglomerative'] # Evaluated algorithms
+
+# ===== PERFORMANCE & RESOURCES =====
+n_jobs: -1                                       # Number of parallel jobs (-1 for all cores)
+use_incremental: true                            # Compute metrics in mini-batches to save memory (true/false)
+
+# ===== OUTPUT & VISUALIZATION =====
+generate_visualizations: true                    # Generate 2D/3D projection plots (true/false)
+save_all_clusters: false                         # Save heavy raw cluster outputs for each trial (true/false)

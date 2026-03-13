@@ -1,0 +1,52 @@
+﻿# ==========================================
+# RESNET-50 CLASSIFICATION CONFIGURATION
+# ==========================================
+
+# ===== DATASET =====
+views: ['front', 'rear']                         # Options: ['front'], ['rear'], ['front', 'rear']
+class_granularity: 'model+year'                  # Options: 'model', 'model+year', 'make'
+min_images: 8                                    # Minimum images per class
+train_ratio: 0.70                                # Proportion of data for training
+val_ratio: 0.15                                  # Proportion of data for validation
+test_ratio: 0.15                                 # Proportion of data for testing
+seed: 3                                          # Random seed for reproducibility
+image_size: [224, 224]                           # Target image resolution [H, W]
+grayscale: true                                  # Grayscale conversion (true/false)
+use_bbox: true                                   # Crop using bounding boxes (true/false)
+augment: true                                    # Apply data augmentation (true/false)
+include_oneshot_in_test: true                    # Include zero-shot/few-shot classes in test (true/false)
+oneshot_ratio: 1.0                               # Ratio of one-shot classes to include
+
+# ===== MODEL =====
+model_type: 'vision'                             # Options: 'vision', 'multimodal'
+model_name: 'resnet50'                           # Specific model architecture name
+weights: 'IMAGENET1K_V1'                         # Pre-trained weights to load
+objective: 'classification'                      # Options: 'classification', 'metric_learning', 'CLIP'
+
+# ===== TRAINING PIPELINE =====
+sampling_strategy: 'standard'                    # Options: 'standard', 'pk'
+batch_size: 128                                  # Batch size for DataLoader
+num_workers: 2                                   # Number of parallel workers
+pin_memory: true                                 # Pin memory for faster GPU transfer
+device: 'cuda'                                   # Options: 'cuda', 'cpu'
+
+# ===== FINE-TUNING ALGORITHM =====
+finetune_epochs: 100                             # Maximum epochs for fine-tuning
+finetune_criterion: 'CrossEntropyLoss'           # Loss function
+finetune_optimizer_type: 'AdamW'                 # Options: 'Adam', 'AdamW', 'SGD'
+finetune_backbone_lr: 3.0e-6                     # Learning rate for the feature extractor
+finetune_head_lr: 1.5e-4                         # Learning rate for the classification head
+finetune_optimizer_weight_decay: 1.5e-2          # L2 regularization factor
+
+# Learning Rate Scheduler
+use_scheduler: true                              # Enable LR scheduler (true/false)
+scheduler_type: 'cosine_warmup'                  # Options: 'cosine_warmup', 'step', 'plateau'
+warmup_epochs: 20                                # Epochs for LR warmup
+
+# Early Stopping
+use_early_stopping: true                         # Enable early stopping (true/false)
+patience: 20                                     # Epochs to wait without improvement
+
+# Optimization Enhancements
+gradient_clip_value: 0.5                         # Max norm for gradient clipping
+use_amp: true                                    # Automatic Mixed Precision (true/false)

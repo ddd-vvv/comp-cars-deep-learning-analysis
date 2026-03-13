@@ -1,0 +1,63 @@
+# ==========================================
+# VIT-B/32 METRIC LEARNING CONFIGURATION
+# ==========================================
+
+# ===== DATASET =====
+views: ['front', 'rear']                         # Options: ['front'], ['rear'], ['front', 'rear']
+class_granularity: 'model+year'                  # Options: 'model', 'model+year', 'make'
+min_images: 8                                    # Minimum images per class
+train_ratio: 0.7                                 # Proportion of data for training
+val_ratio: 0.15                                  # Proportion of data for validation
+test_ratio: 0.15                                 # Proportion of data for testing
+seed: 3                                          # Random seed for reproducibility
+image_size: [224, 224]                           # Target image resolution [H, W]
+grayscale: true                                  # Grayscale conversion (true/false)
+use_bbox: true                                   # Crop using bounding boxes (true/false)
+augment: true                                    # Apply data augmentation (true/false)
+include_oneshot_in_test: true                    # Include zero-shot/few-shot classes in test (true/false)
+oneshot_ratio: 1.0                               # Ratio of one-shot classes to include
+
+# ===== MODEL =====
+model_type: 'vision'                             # Options: 'vision', 'multimodal'
+model_name: 'vit_b_32'                           # Specific model architecture name
+weights: 'IMAGENET1K_V1'                         # Pre-trained weights to load
+objective: 'metric_learning'                     # Options: 'classification', 'metric_learning', 'CLIP'
+
+# ===== TRAINING PIPELINE =====
+sampling_strategy: 'pk'                          # Options: 'standard', 'pk' (P classes, K instances)
+batch_size: 64                                   # Batch size for DataLoader
+P: 16                                            # Number of classes per batch (for PK sampler)
+K: 4                                             # Number of instances per class (for PK sampler)
+num_workers: 2                                   # Number of parallel workers
+pin_memory: true                                 # Pin memory for faster GPU transfer
+device: 'cuda'                                   # Options: 'cuda', 'cpu'
+
+# ===== FINE-TUNING ALGORITHM =====
+finetune_epochs: 120                             # Maximum epochs for fine-tuning
+finetune_criterion: 'multisimilarity'            # Loss function: 'multisimilarity', 'triplet', 'arcface'
+finetune_backbone_lr: 1.0e-6                     # Learning rate for the feature extractor
+finetune_head_lr: 0.0                            # Learning rate for the projection head (if applies)
+finetune_optimizer_weight_decay: 1.0e-2          # L2 regularization factor
+
+# Learning Rate Scheduler
+use_scheduler: true                              # Enable LR scheduler (true/false)
+scheduler_type: 'cosine_warmup'                  # Options: 'cosine_warmup', 'step', 'plateau'
+warmup_epochs: 20                                # Epochs for LR warmup
+
+# Early Stopping
+use_early_stopping: true                         # Enable early stopping (true/false)
+patience: 25                                     # Epochs to wait without improvement
+
+# Optimization Enhancements
+gradient_clip_value: 1.0                         # Max norm for gradient clipping
+use_amp: true                                    # Automatic Mixed Precision (true/false)
+
+# ===== EMBEDDINGS ANALYSIS =====
+reducer_trials: 50                               # Hyperparameter search trials for dimensionality reduction
+reducer_methods: ['pca', 'umap', 'tsne']         # Algorithms for dimensionality reduction
+clustering_trials: 200                           # Hyperparameter search trials for clustering
+clustering_methods: ['dbscan', 'hdbscan', 'optics', 'agglomerative'] # Algorithms for clustering
+n_jobs: -1                                       # CPU cores to use (-1 for all available)
+use_incremental: true                            # Use incremental computation for large datasets (true/false)
+generate_visualizations: true                    # Plot 2D/3D projections and clusters (true/false)
+save_all_clusters: false                         # Save all predicted cluster outputs (true/false)

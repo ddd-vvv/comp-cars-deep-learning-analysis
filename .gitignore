@@ -1,0 +1,79 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Native extensions
+*.so
+*.pyd
+*.dll
+
+# Build and packaging artifacts
+build/
+dist/
+.eggs/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+activate/
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Optional virtualenv tool caches
+.tox/
+.nox/
+
+# IDE/editor settings
+.idea/
+.vscode/
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.swp
+*.log
+*.bak
+*.backup
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+secrets.json
+
+# ML artifacts and experiment outputs
+*.pt
+*.pth
+*.npy
+*.npz
+*.pkl
+*.pickle
+results/
+experiments/
+logs/
+outputs/
+runs/
+wandb/
+mlruns/
+
+# Dataset and local thesis documents
+dataset/
+dataset.csv
+documentos/
+
+# Keep lockfile for reproducible uv sync
+!uv.lock

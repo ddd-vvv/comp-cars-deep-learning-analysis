@@ -1,0 +1,51 @@
+﻿# ==========================================
+# CLIP EXPERIMENT CONFIGURATION
+# ==========================================
+
+# ===== DATASET =====
+views: ['front']                                 # Options: ['front'], ['rear'], ['front', 'rear']
+class_granularity: 'model+year'                  # Options: 'model', 'model+year', 'make'
+min_images: 8                                    # Minimum images per class
+train_ratio: 0.7                                 # Proportion of data for training
+val_ratio: 0.15                                  # Proportion of data for validation
+test_ratio: 0.15                                 # Proportion of data for testing
+seed: 3                                          # Random seed for reproducibility
+image_size: [224, 224]                           # Target image resolution [H, W]
+grayscale: true                                  # Grayscale conversion (true/false)
+use_bbox: true                                   # Crop using bounding boxes (true/false)
+augment: true                                    # Apply data augmentation (true/false)
+include_oneshot_in_test: true                    # Include zero-shot/few-shot classes in test (true/false)
+oneshot_ratio: 1.0                               # Ratio of one-shot classes to include
+
+# Text descriptions configurations
+description_include: 'full'                      # Options: 'full', 'clean', 'basic'
+
+# ===== MODEL =====
+model_type: 'multimodal'                         # Options: 'vision', 'multimodal'
+model_name: 'clip-vit-base-patch32'              # Specific model architecture name
+objective: 'CLIP'                                # Options: 'classification', 'metric_learning', 'CLIP'
+
+# ===== TRAINING PIPELINE =====
+sampling_strategy: 'standard'                    # Options: 'standard', 'pk' (P classes, K instances)
+batch_size: 256                                  # Batch size for DataLoader
+num_workers: 2                                   # Number of parallel workers
+pin_memory: true                                 # Pin memory for faster GPU transfer
+device: 'cuda'                                   # Options: 'cuda', 'cpu'
+
+# Optmizer configuration
+finetune_optimizer_type: 'AdamW'                 # Options: 'Adam', 'AdamW', 'SGD'
+finetune_optimizer_weight_decay: 1.0e-1          # L2 regularization factor
+
+# Mixed precision
+use_amp: true                                    # Automatic Mixed Precision (true/false)
+
+# ===== CLIP MULTI-STAGE FINE-TUNING =====
+clip_finetuning_phases:
+  phase_1_text:
+    type: 'text'                                 # Focus ('text', 'vision', 'projection', 'all')
+    lr: 1.0e-5                                   # Learning rate for phase
+    epochs: 40                                   # Maximum epochs
+    early_stopping: {'patience': 8}              # Early stopping criteria
+    save_best: true                              # Checkpoint saving (true/false)
+    warmup_steps: 100                            # LR scheduler warmup steps
+    num_text_layers: 12                          # Number of text transformer layers to unfreeze
