@@ -3,7 +3,7 @@
 [Español](README.es.md)
 
 **Author:** Diego Vega  
-**Links:** [Thesis (PDF) - Placeholder](#) | [Full Results (Google Drive) - Placeholder](#)
+**Links:** [Thesis (PDF)](https://drive.google.com/file/d/1vWpu36wMhaFOe7DIaxsMcTYh8jedxFZU/view) | [Full Results (Google Drive)](https://drive.google.com/file/d/1vWpu36wMhaFOe7DIaxsMcTYh8jedxFZU/view)
 
 Research repository for the Electrical Engineering thesis focused on non-supervised vehicle model identification using deep representations and clustering.
 
