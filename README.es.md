@@ -3,7 +3,7 @@
 [English](README.md)
 
 **Autor:** Diego Vega  
-**Enlaces:** [Thesis (PDF)](https://drive.google.com/file/d/1vWpu36wMhaFOe7DIaxsMcTYh8jedxFZU/view) | [Full Results (Google Drive)](https://drive.google.com/file/d/1vWpu36wMhaFOe7DIaxsMcTYh8jedxFZU/view)
+**Enlaces:** [Memoria (PDF)](https://drive.google.com/file/d/1vWpu36wMhaFOe7DIaxsMcTYh8jedxFZU/view) | [Resultados completos (Google Drive)](https://drive.google.com/file/d/1vWpu36wMhaFOe7DIaxsMcTYh8jedxFZU/view)
 
 Repositorio de investigación de la memoria de título de Ingeniería Eléctrica, enfocado en identificación no supervisada de modelos de vehículos mediante representaciones profundas y clustering.
 
